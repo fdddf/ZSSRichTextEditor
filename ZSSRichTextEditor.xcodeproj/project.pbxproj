@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0423F7F21C31025C00FFDD80 /* EAEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0423F7F11C31025C00FFDD80 /* EAEditorViewController.m */; };
+		044C96071C336ECD001B6C22 /* ZSSRichTextEditor+EApple.m in Sources */ = {isa = PBXBuildFile; fileRef = 044C96061C336ECD001B6C22 /* ZSSRichTextEditor+EApple.m */; };
+		044C960A1C3386D5001B6C22 /* UIImagePickerController+Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 044C96091C3386D5001B6C22 /* UIImagePickerController+Block.m */; };
 		23065BF51A06BA67001BA0B0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23065BF41A06BA67001BA0B0 /* Images.xcassets */; };
 		2314CBA0198F4CEC00A126F6 /* 76.png in Resources */ = {isa = PBXBuildFile; fileRef = 2314CB9D198F4CEC00A126F6 /* 76.png */; };
 		2314CBA1198F4CEC00A126F6 /* 120.png in Resources */ = {isa = PBXBuildFile; fileRef = 2314CB9E198F4CEC00A126F6 /* 120.png */; };
@@ -114,9 +117,16 @@
 		45F860C618A84CFA0011266B /* ZSSunlink@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45F860A418A84CFA0011266B /* ZSSunlink@2x.png */; };
 		45F860C718A84CFA0011266B /* ZSSunorderedlist@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45F860A518A84CFA0011266B /* ZSSunorderedlist@2x.png */; };
 		45F860C818A84CFA0011266B /* ZSSviewsource@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45F860A618A84CFA0011266B /* ZSSviewsource@2x.png */; };
+		DDC4F99ACDC820A3B7C6B00C /* libPods-ZSSRichTextEditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D833BEC184DC00C1329E2E47 /* libPods-ZSSRichTextEditor.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0423F7F01C31025C00FFDD80 /* EAEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EAEditorViewController.h; path = Classes/EAEditorViewController.h; sourceTree = "<group>"; };
+		0423F7F11C31025C00FFDD80 /* EAEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EAEditorViewController.m; path = Classes/EAEditorViewController.m; sourceTree = "<group>"; };
+		044C96051C336ECD001B6C22 /* ZSSRichTextEditor+EApple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "ZSSRichTextEditor+EApple.h"; path = "Classes/ZSSRichTextEditor+EApple.h"; sourceTree = "<group>"; };
+		044C96061C336ECD001B6C22 /* ZSSRichTextEditor+EApple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "ZSSRichTextEditor+EApple.m"; path = "Classes/ZSSRichTextEditor+EApple.m"; sourceTree = "<group>"; };
+		044C96081C3386D5001B6C22 /* UIImagePickerController+Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImagePickerController+Block.h"; sourceTree = "<group>"; };
+		044C96091C3386D5001B6C22 /* UIImagePickerController+Block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImagePickerController+Block.m"; sourceTree = "<group>"; };
 		23065BF41A06BA67001BA0B0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ZSSRichTextEditor/Images.xcassets; sourceTree = "<group>"; };
 		2314CB9D198F4CEC00A126F6 /* 76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 76.png; sourceTree = "<group>"; };
 		2314CB9E198F4CEC00A126F6 /* 120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 120.png; sourceTree = "<group>"; };
@@ -137,6 +147,7 @@
 		2343B22E199D6E6700349048 /* ZSSCustomButtonsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZSSCustomButtonsViewController.m; path = Classes/ZSSCustomButtonsViewController.m; sourceTree = "<group>"; };
 		23A76DC2187532F1000169F6 /* editor.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = editor.html; path = Source/editor.html; sourceTree = "<group>"; };
 		23A76DC3187532F1000169F6 /* ZSSRichTextEditor.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = ZSSRichTextEditor.js; path = Source/ZSSRichTextEditor.js; sourceTree = "<group>"; };
+		285C13499822AC0CF4D7C13B /* Pods-ZSSRichTextEditor.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZSSRichTextEditor.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZSSRichTextEditor/Pods-ZSSRichTextEditor.release.xcconfig"; sourceTree = "<group>"; };
 		4513B3D6184E8F5100A9CA86 /* ZSSBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZSSBarButtonItem.h; path = Source/ZSSBarButtonItem.h; sourceTree = "<group>"; };
 		4513B3D7184E8F5100A9CA86 /* ZSSBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZSSBarButtonItem.m; path = Source/ZSSBarButtonItem.m; sourceTree = "<group>"; };
 		4552C48F189A094C004EF847 /* ZSSTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZSSTextView.h; path = Source/ZSSTextView.h; sourceTree = "<group>"; };
@@ -252,6 +263,9 @@
 		45F860A418A84CFA0011266B /* ZSSunlink@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ZSSunlink@2x.png"; path = "Source/Images/ZSSunlink@2x.png"; sourceTree = "<group>"; };
 		45F860A518A84CFA0011266B /* ZSSunorderedlist@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ZSSunorderedlist@2x.png"; path = "Source/Images/ZSSunorderedlist@2x.png"; sourceTree = "<group>"; };
 		45F860A618A84CFA0011266B /* ZSSviewsource@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ZSSviewsource@2x.png"; path = "Source/Images/ZSSviewsource@2x.png"; sourceTree = "<group>"; };
+		4D3D69E9DE0CDD214F4FCBA3 /* Pods-ZSSRichTextEditor.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZSSRichTextEditor.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-ZSSRichTextEditor/Pods-ZSSRichTextEditor.adhoc.xcconfig"; sourceTree = "<group>"; };
+		AB21923A1054F8F46B6C2AC2 /* Pods-ZSSRichTextEditor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZSSRichTextEditor.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZSSRichTextEditor/Pods-ZSSRichTextEditor.debug.xcconfig"; sourceTree = "<group>"; };
+		D833BEC184DC00C1329E2E47 /* libPods-ZSSRichTextEditor.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ZSSRichTextEditor.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -262,6 +276,7 @@
 				4581EB82184845790048CAB0 /* CoreGraphics.framework in Frameworks */,
 				4581EB84184845790048CAB0 /* UIKit.framework in Frameworks */,
 				4581EB80184845790048CAB0 /* Foundation.framework in Frameworks */,
+				DDC4F99ACDC820A3B7C6B00C /* libPods-ZSSRichTextEditor.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,6 +302,12 @@
 				2343B22B199D6D6400349048 /* ZSSSelectiveViewController.m */,
 				2343B22D199D6E6700349048 /* ZSSCustomButtonsViewController.h */,
 				2343B22E199D6E6700349048 /* ZSSCustomButtonsViewController.m */,
+				0423F7F01C31025C00FFDD80 /* EAEditorViewController.h */,
+				0423F7F11C31025C00FFDD80 /* EAEditorViewController.m */,
+				044C96051C336ECD001B6C22 /* ZSSRichTextEditor+EApple.h */,
+				044C96061C336ECD001B6C22 /* ZSSRichTextEditor+EApple.m */,
+				044C96081C3386D5001B6C22 /* UIImagePickerController+Block.h */,
+				044C96091C3386D5001B6C22 /* UIImagePickerController+Block.m */,
 			);
 			name = Demo;
 			sourceTree = "<group>";
@@ -403,6 +424,7 @@
 				4581EB85184845790048CAB0 /* View Controllers */,
 				4581EB7E184845790048CAB0 /* Frameworks */,
 				4581EB7D184845790048CAB0 /* Products */,
+				742D8C147C04A8AD8CF06C30 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -422,6 +444,7 @@
 				4581EB81184845790048CAB0 /* CoreGraphics.framework */,
 				4581EB83184845790048CAB0 /* UIKit.framework */,
 				4581EB981848457A0048CAB0 /* XCTest.framework */,
+				D833BEC184DC00C1329E2E47 /* libPods-ZSSRichTextEditor.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -506,6 +529,16 @@
 			path = ColorPicker;
 			sourceTree = "<group>";
 		};
+		742D8C147C04A8AD8CF06C30 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				AB21923A1054F8F46B6C2AC2 /* Pods-ZSSRichTextEditor.debug.xcconfig */,
+				285C13499822AC0CF4D7C13B /* Pods-ZSSRichTextEditor.release.xcconfig */,
+				4D3D69E9DE0CDD214F4FCBA3 /* Pods-ZSSRichTextEditor.adhoc.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -513,9 +546,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4581EBA81848457C0048CAB0 /* Build configuration list for PBXNativeTarget "ZSSRichTextEditor" */;
 			buildPhases = (
+				338A202B746B135A26A60260 /* Check Pods Manifest.lock */,
 				4581EB78184845790048CAB0 /* Sources */,
 				4581EB79184845790048CAB0 /* Frameworks */,
 				4581EB7A184845790048CAB0 /* Resources */,
+				847FD1270C92200E2708EBD9 /* Embed Pods Frameworks */,
+				587A4A8A7DF945E2E8BBB08E /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -535,11 +571,6 @@
 				CLASSPREFIX = ZSS;
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Zed Said Studio";
-				TargetAttributes = {
-					4581EB7B184845790048CAB0 = {
-						DevelopmentTeam = W5MUA6S7P7;
-					};
-				};
 			};
 			buildConfigurationList = 4581EB77184845790048CAB0 /* Build configuration list for PBXProject "ZSSRichTextEditor" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -649,6 +680,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		338A202B746B135A26A60260 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		587A4A8A7DF945E2E8BBB08E /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZSSRichTextEditor/Pods-ZSSRichTextEditor-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		847FD1270C92200E2708EBD9 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZSSRichTextEditor/Pods-ZSSRichTextEditor-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		4581EB78184845790048CAB0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -659,6 +738,7 @@
 				2343B22F199D6E6700349048 /* ZSSCustomButtonsViewController.m in Sources */,
 				2343B22C199D6D6400349048 /* ZSSSelectiveViewController.m in Sources */,
 				4552C491189A094C004EF847 /* ZSSTextView.m in Sources */,
+				044C960A1C3386D5001B6C22 /* UIImagePickerController+Block.m in Sources */,
 				45A0CA4D18A8522A00F3F35E /* HRCgUtil.m in Sources */,
 				45A0CA5018A8522A00F3F35E /* HRColorPickerViewController.m in Sources */,
 				2343B1E0199BE4D000349048 /* ZSSLargeViewController.m in Sources */,
@@ -668,6 +748,7 @@
 				2343B1DD199B34B500349048 /* ZSSColorViewController.m in Sources */,
 				4581EB901848457A0048CAB0 /* ZSSAppDelegate.m in Sources */,
 				45A0CA3E18A8521600F3F35E /* CYRToken.m in Sources */,
+				044C96071C336ECD001B6C22 /* ZSSRichTextEditor+EApple.m in Sources */,
 				4581EBBB184B0F5C0048CAB0 /* ZSSRichTextEditor.m in Sources */,
 				2343B229199D237100349048 /* ZSSPlaceholderViewController.m in Sources */,
 				45A0CA5118A8522A00F3F35E /* HRColorUtil.m in Sources */,
@@ -677,6 +758,7 @@
 				4581EBB81848F8190048CAB0 /* ZSSDemoViewController.m in Sources */,
 				45F80458189B1E9300A1EDD9 /* ZSSDemoPickerViewController.m in Sources */,
 				4513B3D8184E8F5100A9CA86 /* ZSSBarButtonItem.m in Sources */,
+				0423F7F21C31025C00FFDD80 /* EAEditorViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -729,10 +811,11 @@
 		};
 		23013BC5198C30A600C55598 /* Adhoc */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4D3D69E9DE0CDD214F4FCBA3 /* Pods-ZSSRichTextEditor.adhoc.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Nicholas Hubbard (W5MUA6S7P7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ZSSRichTextEditor/ZSSRichTextEditor-Prefix.pch";
@@ -818,6 +901,7 @@
 		};
 		4581EBA91848457C0048CAB0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AB21923A1054F8F46B6C2AC2 /* Pods-ZSSRichTextEditor.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -835,10 +919,11 @@
 		};
 		4581EBAA1848457C0048CAB0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 285C13499822AC0CF4D7C13B /* Pods-ZSSRichTextEditor.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Nicholas Hubbard (W5MUA6S7P7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ZSSRichTextEditor/ZSSRichTextEditor-Prefix.pch";

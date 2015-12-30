@@ -194,4 +194,11 @@ static NSString * const ZSSRichTextEditorToolbarNone = @"com.zedsaid.toolbaritem
  */
 - (void)editorDidScrollWithPosition:(NSInteger)position;
 
+/**
+ *  Get the editor view to custom font and more
+ *
+ *  @return UIWebView
+ */
+- (UIWebView *)getEditorView;
+
 @end

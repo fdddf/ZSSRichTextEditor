@@ -345,6 +345,26 @@ zss_editor.setBackgroundColor = function(color) {
     zss_editor.enabledEditingItems();
 }
 
+zss_editor.setFont = function(font) {
+    zss_editor.restorerange();
+    document.execCommand("styleWithCSS", null, true);
+    document.execCommand('fontName', false, font);
+    document.execCommand("styleWithCSS", null, false);
+    zss_editor.enabledEditingItems();
+}
+
+zss_editor.setFontSize = function(size) {
+    zss_editor.restorerange();
+    document.execCommand("styleWithCSS", null, true);
+    document.execCommand('fontSize', false, size);
+    document.execCommand("styleWithCSS", null, false);
+    zss_editor.enabledEditingItems();
+//
+//    var sel = document.getSelection();
+//    console.log(sel);
+//    zss_editor.currentSelection
+}
+
 // Needs addClass method
 
 zss_editor.insertLink = function(url, title) {
@@ -446,6 +466,12 @@ zss_editor.insertImage = function(url, alt) {
     zss_editor.enabledEditingItems();
 }
 
+zss_editor.insertImage2 = function(src) {
+    zss_editor.restorerange();
+    document.execCommand('insertImage', false, src);
+    zss_editor.enabledEditingItems();
+}
+
 zss_editor.setHTML = function(html) {
     var editor = $('#zss_editor_content');
     editor.html(html);
@@ -544,6 +570,16 @@ zss_editor.enabledEditingItems = function(e) {
     if (zss_editor.isCommandEnabled('insertHorizontalRule')) {
         items.push('horizontalRule');
     }
+    if (zss_editor.isCommandEnabled('fontName')) {
+        items.push('fontName');
+    }
+    if (zss_editor.isCommandEnabled('insertImage')) {
+        items.push('insertImage');
+    }
+    if (zss_editor.isCommandEnabled('fontSize')) {
+        items.push('fontSize');
+    }
+    
     var formatBlock = document.queryCommandValue('formatBlock');
     if (formatBlock.length > 0) {
         items.push(formatBlock);

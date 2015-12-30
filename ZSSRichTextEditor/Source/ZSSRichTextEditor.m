@@ -1340,5 +1340,10 @@ static Class hackishFixClass = Nil;
     }
 }
 
+- (UIWebView *)getEditorView
+{
+    return self.editorView;
+}
+
 
 @end

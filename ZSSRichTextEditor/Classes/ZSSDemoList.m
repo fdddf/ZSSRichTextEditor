@@ -14,6 +14,8 @@
 #import "ZSSSelectiveViewController.h"
 #import "ZSSCustomButtonsViewController.h"
 
+#import "EAEditorViewController.h"
+
 @interface ZSSDemoList ()
 @property (nonatomic) BOOL isIPad;
 @end
@@ -56,8 +58,9 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    //if (self.isIPad) return 6;
-    return 5;
+//    if (self.isIPad) return 7;
+//    return 6;
+    return 7;
 }
 
 
@@ -91,6 +94,9 @@
     } else if (indexPath.row == 5) {
         cell.textLabel.text = @"iPad Form Style Modal";
         cell.detailTextLabel.text = @"Shows a form style modal on the iPad";
+    } else if (indexPath.row == 6) {
+        cell.textLabel.text = @"EAEditor Test";
+        cell.detailTextLabel.text = @"Custom the editor";
     }
     cell.detailTextLabel.textColor = [UIColor grayColor];
     
@@ -120,6 +126,9 @@
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:demo1];
         nav.modalPresentationStyle = UIModalPresentationFormSheet;
         [self presentViewController:nav animated:YES completion:nil];
+    } else if(indexPath.row == 6){
+        EAEditorViewController *vc = [[EAEditorViewController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
     }
     
 }
