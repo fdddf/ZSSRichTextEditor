@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		0423F7F21C31025C00FFDD80 /* EAEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0423F7F11C31025C00FFDD80 /* EAEditorViewController.m */; };
-		044681861C35143000E20C07 /* ZSTextFont.png in Resources */ = {isa = PBXBuildFile; fileRef = 044681841C35143000E20C07 /* ZSTextFont.png */; };
-		044681871C35143000E20C07 /* ZSTextFont@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 044681851C35143000E20C07 /* ZSTextFont@2x.png */; };
 		0446818A1C3518BB00E20C07 /* ZSSRichTextEditor+EApple.m in Sources */ = {isa = PBXBuildFile; fileRef = 044681891C3518BB00E20C07 /* ZSSRichTextEditor+EApple.m */; };
+		0446818D1C352E5600E20C07 /* ZSTextFont.png in Resources */ = {isa = PBXBuildFile; fileRef = 0446818B1C352E5600E20C07 /* ZSTextFont.png */; };
+		0446818E1C352E5600E20C07 /* ZSTextFont@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0446818C1C352E5600E20C07 /* ZSTextFont@2x.png */; };
 		044C960D1C33AA93001B6C22 /* UIImagePickerController+Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 044C960C1C33AA93001B6C22 /* UIImagePickerController+Block.m */; };
 		23065BF51A06BA67001BA0B0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23065BF41A06BA67001BA0B0 /* Images.xcassets */; };
 		2314CBA0198F4CEC00A126F6 /* 76.png in Resources */ = {isa = PBXBuildFile; fileRef = 2314CB9D198F4CEC00A126F6 /* 76.png */; };
@@ -125,10 +125,10 @@
 /* Begin PBXFileReference section */
 		0423F7F01C31025C00FFDD80 /* EAEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EAEditorViewController.h; path = Classes/EAEditorViewController.h; sourceTree = "<group>"; };
 		0423F7F11C31025C00FFDD80 /* EAEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EAEditorViewController.m; path = Classes/EAEditorViewController.m; sourceTree = "<group>"; };
-		044681841C35143000E20C07 /* ZSTextFont.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZSTextFont.png; sourceTree = "<group>"; };
-		044681851C35143000E20C07 /* ZSTextFont@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSTextFont@2x.png"; sourceTree = "<group>"; };
 		044681881C3518BB00E20C07 /* ZSSRichTextEditor+EApple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "ZSSRichTextEditor+EApple.h"; path = "Source/ZSSRichTextEditor+EApple.h"; sourceTree = "<group>"; };
 		044681891C3518BB00E20C07 /* ZSSRichTextEditor+EApple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "ZSSRichTextEditor+EApple.m"; path = "Source/ZSSRichTextEditor+EApple.m"; sourceTree = "<group>"; };
+		0446818B1C352E5600E20C07 /* ZSTextFont.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ZSTextFont.png; path = Source/Images/ZSTextFont.png; sourceTree = "<group>"; };
+		0446818C1C352E5600E20C07 /* ZSTextFont@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ZSTextFont@2x.png"; path = "Source/Images/ZSTextFont@2x.png"; sourceTree = "<group>"; };
 		044C960B1C33AA93001B6C22 /* UIImagePickerController+Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImagePickerController+Block.h"; path = "Classes/UIImagePickerController+Block.h"; sourceTree = "<group>"; };
 		044C960C1C33AA93001B6C22 /* UIImagePickerController+Block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImagePickerController+Block.m"; path = "Classes/UIImagePickerController+Block.m"; sourceTree = "<group>"; };
 		23065BF41A06BA67001BA0B0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ZSSRichTextEditor/Images.xcassets; sourceTree = "<group>"; };
@@ -332,8 +332,8 @@
 		4562858E184CFBE400B6168E /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				044681841C35143000E20C07 /* ZSTextFont.png */,
-				044681851C35143000E20C07 /* ZSTextFont@2x.png */,
+				0446818B1C352E5600E20C07 /* ZSTextFont.png */,
+				0446818C1C352E5600E20C07 /* ZSTextFont@2x.png */,
 				45F73D0818D7AE9700CD6DBA /* ZSSbgcolor.png */,
 				45F8608518A84CF90011266B /* ZSSbgcolor@2x.png */,
 				45F73D0918D7AE9700CD6DBA /* ZSSbold.png */,
@@ -614,7 +614,7 @@
 				45F73D4518D7AE9700CD6DBA /* ZSSsubscript.png in Resources */,
 				45F860C718A84CFA0011266B /* ZSSunorderedlist@2x.png in Resources */,
 				45F73D4A18D7AE9700CD6DBA /* ZSSundo.png in Resources */,
-				044681861C35143000E20C07 /* ZSTextFont.png in Resources */,
+				0446818D1C352E5600E20C07 /* ZSTextFont.png in Resources */,
 				45F860AF18A84CFA0011266B /* ZSSh4@2x.png in Resources */,
 				45F860C418A84CFA0011266B /* ZSSunderline@2x.png in Resources */,
 				45F73D3318D7AE9700CD6DBA /* ZSSh4.png in Resources */,
@@ -672,7 +672,7 @@
 				45F860C518A84CFA0011266B /* ZSSundo@2x.png in Resources */,
 				45F860BF18A84CFA0011266B /* ZSSstrikethrough@2x.png in Resources */,
 				45F73D3718D7AE9700CD6DBA /* ZSSimage.png in Resources */,
-				044681871C35143000E20C07 /* ZSTextFont@2x.png in Resources */,
+				0446818E1C352E5600E20C07 /* ZSTextFont@2x.png in Resources */,
 				2314CBA1198F4CEC00A126F6 /* 120.png in Resources */,
 				45F860B218A84CFA0011266B /* ZSShorizontalrule@2x.png in Resources */,
 				45F73D4318D7AE9700CD6DBA /* ZSSrightjustify.png in Resources */,
