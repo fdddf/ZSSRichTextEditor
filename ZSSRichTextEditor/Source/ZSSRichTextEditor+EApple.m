@@ -12,9 +12,21 @@
 
 #import <ActionSheetPicker-3.0/ActionSheetPicker.h>
 #import <JGActionSheet/JGActionSheet.h>
+#import <objc/runtime.h>
 
 @implementation ZSSRichTextEditor (EApple)
-@dynamic localImages;
+
+static void *localImagesKey = &localImagesKey;
+
+- (NSMutableArray *)localImages
+{
+    return objc_getAssociatedObject(self, localImagesKey);
+}
+
+- (void)setLocalImages:(NSMutableArray *)localImages
+{
+    objc_setAssociatedObject(self, localImagesKey, localImages, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
 
 - (void)setupToolbar
 {
