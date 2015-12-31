@@ -29,7 +29,7 @@ Pod::Spec.new do |s|
 
   s.source_files  = "**/*.{h,m}", "**/ZSSRichTextEditor+EApple.{h, m}}"
   s.exclude_files = "**/ZSSDemo*.{h,m}", "**/ZSSAppDelegate*.{h,m}", "**/main.m", "Pods/"
-  s.resources = "**/ZSS*.png", "**/ZSSRichTextEditor.js", "**/editor.html"
+  s.resources = "**/ZS*.png", "**/ZSSRichTextEditor.js", "**/editor.html"
 
   s.dependency  'ActionSheetPicker-3.0'
   s.dependency 'JGActionSheet'
