@@ -10,5 +10,4 @@
 
 @interface EAEditorViewController : ZSSRichTextEditor
 
-@property(nonatomic, strong) NSMutableArray *localImages;
 @end

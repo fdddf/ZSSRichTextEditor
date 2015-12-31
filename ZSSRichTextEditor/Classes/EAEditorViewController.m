@@ -9,9 +9,7 @@
 #import "EAEditorViewController.h"
 #import "ZSSBarButtonItem.h"
 
-#import <ActionSheetPicker-3.0/ActionSheetPicker.h>
-
-@interface EAEditorViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface EAEditorViewController ()
 
 @end
 
