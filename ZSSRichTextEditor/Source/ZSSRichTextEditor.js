@@ -461,7 +461,7 @@ zss_editor.prepareInsert = function() {
 
 zss_editor.insertImage = function(url, alt) {
     zss_editor.restorerange();
-    var html = '<img src="'+url+'" alt="'+alt+'" />';
+    var html = '<img src="'+url+'" alt="'+alt+'" style="width:100%" />';
     zss_editor.insertHTML(html);
     zss_editor.enabledEditingItems();
 }
@@ -513,10 +513,68 @@ zss_editor.getHTML = function() {
                 });
     }
     
-    // Get the contents
-    var h = document.getElementById("zss_editor_content").innerHTML;
+
+    var listFont = [{n:'x-small',s:'10px'},{n:'small',s:'12px'},{n:'medium',s:'16px'},{n:'large',s:'18px'},{n:'x-large',s:'24px'},{n:'xx-large',s:'32px'},{n:'-webkit-xxx-large',s:'48px'}];
     
-    return h;
+    // Font
+    var html = document.getElementById("zss_editor_content").innerHTML;
+    
+    function font2style(all,tag,attrs,content)
+    {
+        if(!attrs)return content;
+        var styles='',f,s,c,style;
+        attrs=attrs.replace(/ face\s*=\s*"\s*([^"]*)\s*"/i,function(all,v){
+            if(v)styles+='font-family:'+v+';';
+            return '';
+        });
+        attrs=attrs.replace(/ size\s*=\s*"\s*(\d+)\s*"/i,function(all,v){
+            styles+='font-size:'+listFont[(v>7?7:(v<1?1:v))-1].s+';';
+            return '';
+        });
+        attrs=attrs.replace(/ color\s*=\s*"\s*([^"]*)\s*"/i,function(all,v){
+            if(v)styles+='color:'+v+';';
+            return '';
+        });
+        attrs=attrs.replace(/ style\s*=\s*"\s*([^"]*)\s*"/i,function(all,v){
+            if(v)styles+=v;
+            return '';
+        });
+        attrs+=' style="'+styles+'"';
+        return attrs?('<span'+attrs+'>'+content+'</span>'):content;
+    }
+    html = html.replace(/<(font)(\s+[^>]*?)?>(((?!<\1(\s+[^>]*?)?>)[\s\S]|<\1(\s+[^>]*?)?>((?!<\1(\s+[^>]*?)?>)[\s\S]|<\1(\s+[^>]*?)?>((?!<\1(\s+[^>]*?)?>)[\s\S])*?<\/\1>)*?<\/\1>)*?)<\/\1>/ig,font2style);//第3层
+    html = html.replace(/<(font)(\s+[^>]*?)?>(((?!<\1(\s+[^>]*?)?>)[\s\S]|<\1(\s+[^>]*?)?>((?!<\1(\s+[^>]*?)?>)[\s\S])*?<\/\1>)*?)<\/\1>/ig,font2style);//第2层
+    html = html.replace(/<(font)(\s+[^>]*?)?>(((?!<\1(\s+[^>]*?)?>)[\s\S])*?)<\/\1>/ig,font2style);//最里层
+    html = html.replace(/^(\s*\r?\n)+|(\s*\r?\n)+$/g,'');//清理首尾换行
+    
+    html = html.replace(/(<(\w+))((?:\s+[\w\-:]+\s*=\s*(?:"[^"]*"|'[^']*'|[^>\s]+))*)\s*(\/?>)/g, function(all,left,tag,attr,right){        
+        tag=tag.toLowerCase();
+        var saveValue;
+        attr=attr.replace(/\s+([\w\-:]+)\s*=\s*("[^"]*"|'[^']*'|[^>\s]+)/g, function(all,n,v){
+            n=n.toLowerCase();
+            v=v.match(/^(["']?)(.*)\1/)[2].replace(/"/g,"'");
+            if(n==='style'){//转换font-size的keyword到px单位
+                v=v.replace(/(^|;)\s*(font-size)\s*:\s*([a-z-]+)\s*(;|$)/i,function(all,left,n,v,right){
+                    var t,s;
+                    for(var i=0;i<listFont.length;i++)
+                    {
+                        t=listFont[i];
+                        if(v===t.n){s=t.s;break;}
+                    }
+                    return left+n+':'+s+right;
+                });
+            }
+            return ' '+n+'="'+v+'"';
+        });
+
+        return left+attr+right;
+    });
+    
+    
+    // Get the contents
+//    var h = document.getElementById("zss_editor_content").innerHTML;
+    
+    return html;
 }
 
 zss_editor.getText = function() {

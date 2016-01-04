@@ -21,6 +21,8 @@
     
     self.title = @"Custom Buttons";
     
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"提交" style:UIBarButtonItemStylePlain target:self action:@selector(actionSubmit:)];    
+    
     // HTML Content to set in the editor
     NSString *html = @"<p>This editor is using <strong>custom buttons</strong>.</p>";
     
@@ -34,5 +36,9 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)actionSubmit:(id)sender
+{
+    NSLog(@"%@", [self getHTML]);
+}
 
 @end
