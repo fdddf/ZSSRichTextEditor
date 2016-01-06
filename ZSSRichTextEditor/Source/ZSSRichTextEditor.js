@@ -466,11 +466,265 @@ zss_editor.insertImage = function(url, alt) {
     zss_editor.enabledEditingItems();
 }
 
-zss_editor.insertImage2 = function(src) {
+/**
+ *  @brief      Inserts a local image URL.  Useful for images that need to be uploaded.
+ *  @details    By inserting a local image URL, we can make sure the image is shown to the user
+ *              as soon as it's selected for uploading.  Once the image is successfully uploaded
+ *              the application should call replaceLocalImageWithRemoteImage().
+ *
+ *  @param      imageNodeIdentifier     This is a unique ID provided by the caller.  It exists as
+ *                                      a mechanism to update the image node with the remote URL
+ *                                      when replaceLocalImageWithRemoteImage() is called.
+ *  @param      localImageUrl           The URL of the local image to display.  Please keep in mind
+ *                                      that a remote URL can be used here too, since this method
+ *                                      does not check for that.  It would be a mistake.
+ */
+zss_editor.insertLocalImage = function(imageNodeIdentifier, localImageUrl) {
     zss_editor.restorerange();
-    document.execCommand('insertImage', false, src);
-    zss_editor.enabledEditingItems();
-}
+    var space = '&nbsp';
+    var progressIdentifier = this.getImageProgressIdentifier(imageNodeIdentifier);
+    var imageContainerIdentifier = this.getImageContainerIdentifier(imageNodeIdentifier);
+    var imgContainerStart = '<span id="' + imageContainerIdentifier+'" class="img_container" contenteditable="false" data-failed="Tap to try again!">';
+    var imgContainerEnd = '</span>';
+    var progress = '<progress id="' + progressIdentifier+'" value=0  class="wp_media_indicator"  contenteditable="false"></progress>';
+    var image = '<img data-wpid="' + imageNodeIdentifier + '" src="' + localImageUrl + '" alt="" />';
+    var html = imgContainerStart + progress+image + imgContainerEnd;
+    html = space + html + space;
+    
+    this.insertHTML(html);
+    this.enabledEditingItems();
+};
+
+zss_editor.getImageNodeWithIdentifier = function(imageNodeIdentifier) {
+    return $('img[data-wpid="' + imageNodeIdentifier+'"]');
+};
+
+zss_editor.getImageProgressIdentifier = function(imageNodeIdentifier) {
+    return 'progress_' + imageNodeIdentifier;
+};
+
+zss_editor.getImageProgressNodeWithIdentifier = function(imageNodeIdentifier) {
+    return $('#'+this.getImageProgressIdentifier(imageNodeIdentifier));
+};
+
+zss_editor.getImageContainerIdentifier = function(imageNodeIdentifier) {
+    return 'img_container_' + imageNodeIdentifier;
+};
+
+zss_editor.getImageContainerNodeWithIdentifier = function(imageNodeIdentifier) {
+    return $('#'+this.getImageContainerIdentifier(imageNodeIdentifier));
+};
+
+zss_editor.isMediaContainerNode = function(node) {
+    if (node.id === undefined) {
+        return false;
+    }
+    return (node.id.search("img_container_") == 0) || (node.id.search("video_container_") == 0);
+};
+
+zss_editor.extractMediaIdentifier = function(node) {
+    if (node.id.search("img_container_") == 0) {
+        return node.id.replace("img_container_", "");
+    } else if (node.id.search("video_container_") == 0) {
+        return node.id.replace("video_container_", "");
+    }
+    return "";
+};
+
+/**
+ *  @brief      Replaces a local image URL with a remote image URL.  Useful for images that have
+ *              just finished uploading.
+ *  @details    The remote image can be available after a while, when uploading images.  This method
+ *              allows for the remote URL to be loaded once the upload completes.
+ *
+ *  @param      imageNodeIdentifier     This is a unique ID provided by the caller.  It exists as
+ *                                      a mechanism to update the image node with the remote URL
+ *                                      when replaceLocalImageWithRemoteImage() is called.
+ *  @param      remoteImageUrl          The URL of the remote image to display.
+ */
+zss_editor.replaceLocalImageWithRemoteImage = function(imageNodeIdentifier, remoteImageUrl) {
+    var imageNode = this.getImageNodeWithIdentifier(imageNodeIdentifier);
+    
+    if (imageNode.length == 0) {
+        // even if the image is not present anymore we must do callback
+        this.markImageUploadDone(imageNodeIdentifier);
+        return;
+    }
+    
+    var image = new Image;
+    
+    image.onload = function () {
+        imageNode.attr('src', image.src);
+        zss_editor.markImageUploadDone(imageNodeIdentifier);
+    }
+    
+    image.onerror = function () {
+        // Even on an error, we swap the image for the time being.  This is because private
+        // blogs are currently failing to download images due to access privilege issues.
+        //
+        imageNode.attr('src', image.src);
+        zss_editor.markImageUploadDone(imageNodeIdentifier);
+    }
+    
+    image.src = remoteImageUrl;
+};
+
+/**
+ *  @brief      Update the progress indicator for the image identified with the value in progress.
+ *
+ *  @param      imageNodeIdentifier This is a unique ID provided by the caller.
+ *  @param      progress    A value between 0 and 1 indicating the progress on the image.
+ */
+zss_editor.setProgressOnImage = function(imageNodeIdentifier, progress) {
+    var imageNode = this.getImageNodeWithIdentifier(imageNodeIdentifier);
+    if (imageNode.length == 0){
+        return;
+    }
+    if (progress < 1){
+        imageNode.addClass("uploading");
+    }
+    
+    var imageProgressNode = this.getImageProgressNodeWithIdentifier(imageNodeIdentifier);
+    if (imageProgressNode.length == 0){
+        return;
+    }
+    imageProgressNode.attr("value",progress);
+};
+
+/**
+ *  @brief      Notifies that the image upload as finished
+ *
+ *  @param      imageNodeIdentifier     The unique image ID for the uploaded image
+ */
+zss_editor.markImageUploadDone = function(imageNodeIdentifier) {
+    var imageNode = this.getImageNodeWithIdentifier(imageNodeIdentifier);
+    if (imageNode.length > 0){
+        // remove identifier attributed from image
+        imageNode.removeAttr('data-wpid');
+        
+        // remove uploading style
+        imageNode.removeClass("uploading");
+        imageNode.removeAttr("class");
+        
+        // Remove all extra formatting nodes for progress
+        if (imageNode.parent().attr("id") == this.getImageContainerIdentifier(imageNodeIdentifier)) {
+            // remove id from container to avoid to report a user removal
+            imageNode.parent().attr("id", "");
+            imageNode.parent().replaceWith(imageNode);
+        }
+        // Wrap link around image
+        var linkTag = '<a href="' + imageNode.attr("src") + '"></a>';
+        imageNode.wrap(linkTag);
+    }
+    
+    var joinedArguments = zss_editor.getJoinedFocusedFieldIdAndCaretArguments();
+    zss_editor.callback("callback-input", joinedArguments);
+    // We invoke the sendImageReplacedCallback with a delay to avoid for
+    // it to be ignored by the webview because of the previous callback being done.
+    var thisObj = this;
+    setTimeout(function() { thisObj.sendImageReplacedCallback(imageNodeIdentifier);}, 500);
+};
+
+/**
+ *  @brief      Callbacks to native that the image upload as finished and the local url was replaced by the remote url
+ *
+ *  @param      imageNodeIdentifier     The unique image ID for the uploaded image
+ */
+zss_editor.sendImageReplacedCallback = function( imageNodeIdentifier ) {
+    var arguments = ['id=' + encodeURIComponent( imageNodeIdentifier )];
+    
+    var joinedArguments = arguments.join( defaultCallbackSeparator );
+    
+    this.callback("callback-image-replaced", joinedArguments);
+};
+
+/**
+ *  @brief      Marks the image as failed to upload
+ *
+ *  @param      imageNodeIdentifier     This is a unique ID provided by the caller.
+ *  @param      message                 A message to show to the user, overlayed on the image
+ */
+zss_editor.markImageUploadFailed = function(imageNodeIdentifier, message) {
+    var imageNode = this.getImageNodeWithIdentifier(imageNodeIdentifier);
+    if (imageNode.length == 0){
+        return;
+    }
+    
+    var sizeClass = '';
+    if ( imageNode[0].width > 480 && imageNode[0].height > 240 ) {
+        sizeClass = "largeFail";
+    } else if ( imageNode[0].width < 100 || imageNode[0].height < 100 ) {
+        sizeClass = "smallFail";
+    }
+    
+    imageNode.addClass('failed');
+    
+    var imageContainerNode = this.getImageContainerNodeWithIdentifier(imageNodeIdentifier);
+    if(imageContainerNode.length != 0){
+        imageContainerNode.attr("data-failed", message);
+        imageNode.removeClass("uploading");
+        imageContainerNode.addClass('failed');
+        imageContainerNode.addClass(sizeClass);
+    }
+    
+    var imageProgressNode = this.getImageProgressNodeWithIdentifier(imageNodeIdentifier);
+    if (imageProgressNode.length != 0){
+        imageProgressNode.addClass('failed');
+    }
+};
+
+/**
+ *  @brief      Unmarks the image as failed to upload
+ *
+ *  @param      imageNodeIdentifier     This is a unique ID provided by the caller.
+ */
+zss_editor.unmarkImageUploadFailed = function(imageNodeIdentifier, message) {
+    var imageNode = this.getImageNodeWithIdentifier(imageNodeIdentifier);
+    if (imageNode.length != 0){
+        imageNode.removeClass('failed');
+    }
+    
+    var imageContainerNode = this.getImageContainerNodeWithIdentifier(imageNodeIdentifier);
+    if(imageContainerNode.length != 0){
+        imageContainerNode.removeAttr("data-failed");
+        imageContainerNode.removeClass('failed');
+    }
+    
+    var imageProgressNode = this.getImageProgressNodeWithIdentifier(imageNodeIdentifier);
+    if (imageProgressNode.length != 0){
+        imageProgressNode.removeClass('failed');
+    }
+};
+
+/**
+ *  @brief      Remove the image from the DOM.
+ *
+ *  @param      imageNodeIdentifier     This is a unique ID provided by the caller.
+ */
+zss_editor.removeImage = function(imageNodeIdentifier) {
+    var imageNode = this.getImageNodeWithIdentifier(imageNodeIdentifier);
+    if (imageNode.length != 0){
+        imageNode.remove();
+    }
+    // if image is inside options container we need to remove the container
+    var imageContainerNode = this.getImageContainerNodeWithIdentifier(imageNodeIdentifier);
+    if (imageContainerNode.length != 0){
+        //reset id before removal to avoid detection of user removal
+        imageContainerNode.attr("id","");
+        imageContainerNode.remove();
+    }
+};
+
+/**
+ *  @brief      Callbacks to native that the media container was deleted by the user
+ *
+ *  @param      mediaNodeIdentifier     The unique media ID
+ */
+zss_editor.sendMediaRemovedCallback = function(mediaNodeIdentifier) {
+    var arguments = ['id=' + encodeURIComponent(mediaNodeIdentifier)];
+    var joinedArguments = arguments.join(defaultCallbackSeparator);
+    this.callback("callback-media-removed", joinedArguments);
+};
 
 zss_editor.setHTML = function(html) {
     var editor = $('#zss_editor_content');
@@ -643,10 +897,10 @@ zss_editor.enabledEditingItems = function(e) {
         items.push(formatBlock);
     }
     // Images
-    $('img').bind('touchstart', function(e) {
-                  $('img').removeClass('zs_active');
-                  $(this).addClass('zs_active');
-                  });
+//    $('img').bind('touchstart', function(e) {
+//                  $('img').removeClass('zs_active');
+//                  $(this).addClass('zs_active');
+//                  });
     
     // Use jQuery to figure out those that are not supported
     if (typeof(e) != "undefined") {

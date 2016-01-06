@@ -1008,12 +1008,11 @@ static Class hackishFixClass = Nil;
     [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
 }
 
-
-- (void)updateImage:(NSString *)url alt:(NSString *)alt {
+- (void)updateImage:(NSString *)url alt:(NSString *)alt
+{
     NSString *trigger = [NSString stringWithFormat:@"zss_editor.updateImage(\"%@\", \"%@\");", url, alt];
     [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
 }
-
 
 - (void)updateToolBarWithButtonName:(NSString *)name {
     

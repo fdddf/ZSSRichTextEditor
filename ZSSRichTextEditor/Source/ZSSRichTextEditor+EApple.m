@@ -16,16 +16,16 @@
 
 @implementation ZSSRichTextEditor (EApple)
 
-static void *localImagesKey = &localImagesKey;
+static void *imagesAddedKey = &imagesAddedKey;
 
-- (NSMutableArray *)localImages
+- (NSMutableDictionary *)imagesAdded
 {
-    return objc_getAssociatedObject(self, localImagesKey);
+    return objc_getAssociatedObject(self, imagesAddedKey);
 }
 
-- (void)setLocalImages:(NSMutableArray *)localImages
+- (void)setImagesAdded:(NSMutableDictionary *)imagesAdded
 {
-    objc_setAssociatedObject(self, localImagesKey, localImages, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, imagesAddedKey, imagesAdded, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (void)setupToolbar
@@ -47,7 +47,7 @@ static void *localImagesKey = &localImagesKey;
     ZSSBarButtonItem *imageItem = [[ZSSBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSSimage.png"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapImageButton:)];
     [self addCustomToolbarItem:imageItem];
     
-    self.localImages = [NSMutableArray array];
+    self.imagesAdded = [[NSMutableDictionary alloc] init];
 }
 
 - (void)didTapFontButton:(id)sender
@@ -199,19 +199,103 @@ static void *localImagesKey = &localImagesKey;
 - (void)saveImages:(NSDictionary<NSString *,id> *)info
 {
     UIImage *orginalImage = info[UIImagePickerControllerEditedImage];
-    NSData *imageData = UIImagePNGRepresentation(orginalImage);
+    NSData *imageData = UIImageJPEGRepresentation(orginalImage, 0.5f);
     ;
     NSString *imageId = [[NSUUID UUID] UUIDString];
-    NSString *filename = [NSString stringWithFormat:@"%@.png", imageId];
+    NSString *filename = [NSString stringWithFormat:@"%@.jpg", imageId];
     
     NSString *path = [NSTemporaryDirectory() stringByAppendingPathComponent:filename];
+    
     [imageData writeToFile:path atomically:YES];
     
-    NSURL *fileUrl = [NSURL fileURLWithPath:path];
-    
     //    NSURL *url = [info objectForKey:UIImagePickerControllerReferenceURL];
-    [self.localImages addObject:fileUrl.absoluteString];
-    [self insertImage:fileUrl.absoluteString alt:@""];
+//    [self.localImages addObject:fileUrl.absoluteString];
+//    [self insertImage:fileUrl.absoluteString alt:@""];
+    [self insertLocalImage:[NSURL fileURLWithPath:path].absoluteString uniqueId:imageId];
+    
+//    NSProgress *progress = [[NSProgress alloc] initWithParent:nil userInfo:@{@"imageID": imageId,
+//                                                                             @"url": path}];
+//    progress.cancellable = YES;
+//    progress.totalUnitCount = 100;
+//    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerFired:) userInfo:progress repeats:YES];
+//    [progress setCancellationHandler:^{
+//        [timer invalidate];
+//    }];
+//    self.imagesAdded[imageId] = progress;
+    
+    ZSSImage *image = [[ZSSImage alloc] init];
+    image.localPath = path;
+    image.imageId = imageId;
+    
+    self.imagesAdded[imageId] = image;
+    [self needUploadImage:image];
+}
+
+- (void)needUploadImage:(ZSSImage *)image
+{
+    NSProgress *progress = [[NSProgress alloc] initWithParent:nil userInfo:@{@"image":image}];
+    progress.cancellable = YES;
+    progress.totalUnitCount = 100;
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerFired:) userInfo:progress repeats:YES];
+    [progress setCancellationHandler:^{
+        [timer invalidate];
+    }];
+}
+
+#pragma mark - Images
+
+- (void)insertLocalImage:(NSString*)url uniqueId:(NSString*)uniqueId
+{
+    NSString *trigger = [NSString stringWithFormat:@"zss_editor.insertLocalImage(\"%@\", \"%@\");", uniqueId, url];
+    [[self getEditorView] stringByEvaluatingJavaScriptFromString:trigger];
+}
+
+- (void)replaceLocalImageWithRemoteImage:(NSString*)url uniqueId:(NSString*)uniqueId
+{
+    NSString *trigger = [NSString stringWithFormat:@"zss_editor.replaceLocalImageWithRemoteImage(\"%@\", \"%@\");", uniqueId, url];
+    [[self getEditorView] stringByEvaluatingJavaScriptFromString:trigger];
+}
+
+- (void)setProgress:(double) progress onImage:(NSString*)uniqueId
+{
+    NSString *trigger = [NSString stringWithFormat:@"zss_editor.setProgressOnImage(\"%@\", %f);", uniqueId, progress];
+    [[self getEditorView] stringByEvaluatingJavaScriptFromString:trigger];
+}
+
+- (void)markImage:(NSString *)uniqueId failedUploadWithMessage:(NSString*) message;
+{
+    NSString *trigger = [NSString stringWithFormat:@"zss_editor.markImageUploadFailed(\"%@\", \"%@\");", uniqueId, message];
+    [[self getEditorView] stringByEvaluatingJavaScriptFromString:trigger];
+}
+
+- (void)unmarkImageFailedUpload:(NSString *)uniqueId
+{
+    NSString *trigger = [NSString stringWithFormat:@"zss_editor.unmarkImageUploadFailed(\"%@\");", uniqueId];
+    [[self getEditorView] stringByEvaluatingJavaScriptFromString:trigger];
+}
+
+- (void)removeImage:(NSString*)uniqueId
+{
+    NSString *trigger = [NSString stringWithFormat:@"zss_editor.removeImage(\"%@\");", uniqueId];
+    [[self getEditorView] stringByEvaluatingJavaScriptFromString:trigger];
+}
+
+#pragma mark - 
+
+- (void)timerFired:(NSTimer *)timer
+{
+    NSProgress *progress = (NSProgress *)timer.userInfo;
+    progress.completedUnitCount ++;
+    ZSSImage *image = progress.userInfo[@"image"];
+    NSString *imageId = image.imageId;
+    if(imageId){
+        [self setProgress:progress.fractionCompleted onImage:imageId];
+        
+        if(progress.fractionCompleted>=1){
+            [self replaceLocalImageWithRemoteImage:[[NSURL fileURLWithPath:progress.userInfo[@"url"]] absoluteString] uniqueId:imageId];
+            [timer invalidate];
+        }
+    }
 }
 
 
